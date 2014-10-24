@@ -1,0 +1,72 @@
+.navbar
+{
+    margin: 0;
+}
+
+.navbar-default
+{
+    background-color: $navBgColor;
+    border: none;
+    border-radius: 0;
+    padding: 5px;
+
+    // dropdown display on mouseover
+    ul.nav li.dropdown:hover > ul.dropdown-menu
+    {
+        display: block;    
+    }
+
+    .navbar-nav > li.active 
+    {
+        a
+        {
+            background-color: $mainBgColor;
+            color: $tabColor;
+        }
+        
+        a:hover
+        {
+            background-color: $mainBgColor;
+            color: $tabColor;
+        }
+    }
+
+    .navbar-nav > li, .navbar-nav > li.open
+    {
+        position: relative;
+        top: 5px;
+
+        a
+        {
+            background-color: $navBgColor;
+            color: $tabColor;
+            font-family: $tabFontFamily;
+            font-weight: bold;
+            padding: 15px;
+            text-shadow: #000 0.1em 0.1em 0.2em;
+        }
+
+        a:hover, a:focus, .dropdown-menu > li > a:hover
+        {
+            background-color: $tabBgColor;
+            color: $tabColor;
+        }
+
+        ul
+        {
+            background-color: $navBgColor;
+            padding: 0;
+        }
+
+        .dropdown-menu > li > a
+        {
+            color: $tabDropdownColor;
+        }
+    }
+}
+
+.navbar-brand
+{
+    padding: 5px 20px 5px 45px;
+}
+

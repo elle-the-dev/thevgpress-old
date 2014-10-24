@@ -1,0 +1,61 @@
+.navbar {
+  margin: 0; }
+
+.navbar-default {
+  background-color: #406062;
+  border: none;
+  border-radius: 0;
+  padding: 5px; }
+  .navbar-default ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block; }
+  .navbar-default .navbar-nav > li.active a {
+    background-color: #202020;
+    color: #FFFFFF; }
+  .navbar-default .navbar-nav > li.active a:hover {
+    background-color: #202020;
+    color: #FFFFFF; }
+  .navbar-default .navbar-nav > li, .navbar-default .navbar-nav > li.open {
+    position: relative;
+    top: 5px; }
+    .navbar-default .navbar-nav > li a, .navbar-default .navbar-nav > li.open a {
+      background-color: #406062;
+      color: #FFFFFF;
+      font-family: georgia, "times new roman", serif;
+      font-weight: bold;
+      padding: 15px;
+      text-shadow: #000 0.1em 0.1em 0.2em; }
+    .navbar-default .navbar-nav > li a:hover, .navbar-default .navbar-nav > li a:focus, .navbar-default .navbar-nav > li .dropdown-menu > li > a:hover, .navbar-default .navbar-nav > li.open a:hover, .navbar-default .navbar-nav > li.open a:focus, .navbar-default .navbar-nav > li.open .dropdown-menu > li > a:hover {
+      background-color: #284041;
+      color: #FFFFFF; }
+    .navbar-default .navbar-nav > li ul, .navbar-default .navbar-nav > li.open ul {
+      background-color: #406062;
+      padding: 0; }
+    .navbar-default .navbar-nav > li .dropdown-menu > li > a, .navbar-default .navbar-nav > li.open .dropdown-menu > li > a {
+      color: #FFFFFF; }
+
+.navbar-brand {
+  padding: 5px 20px 5px 45px; }
+
+@font-face {
+  font-family: 'DejaVu Sans';
+  src: url("/fonts/DejaVuSans.ttf") format("truetype"); }
+html, body {
+  background-color: #202020;
+  font-family: "DejaVu Sans", verdana, Calibri, "Trebuchet MS", sans-serif; }
+
+a {
+  color: #7BCBB2; }
+
+#content {
+  color: #FFFFFF;
+  padding: 30px 50px; }
+
+.modal-header, .modal-footer {
+  background-color: #406062;
+  color: #FFFFFF; }
+
+.modal-body {
+  background-color: #202020;
+  color: #FFFFFF; }
+
+/*# sourceMappingURL=screen.css.map */

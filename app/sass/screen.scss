@@ -1,0 +1,46 @@
+$navBgColor: #406062;
+$tabColor: #FFFFFF;
+$tabBgColor: rgb(40, 64, 65);
+$tabFontFamily: georgia, "times new roman", serif;
+$tabDropdownColor: #FFFFFF;
+$mainBgColor: #202020;
+$mainTextColor: #FFFFFF;
+$mainLinkColor: #7BCBB2;
+$mainFontFamily: "DejaVu Sans",verdana,Calibri,"Trebuchet MS",sans-serif;
+
+@import 'navbar';
+
+@font-face
+{
+    font-family: 'DejaVu Sans';
+    src: url('/fonts/DejaVuSans.ttf') format('truetype');
+}
+
+html, body
+{
+    background-color: $mainBgColor;
+    font-family: $mainFontFamily;
+}
+
+a
+{
+    color: $mainLinkColor;
+}
+
+#content
+{
+    color: $mainTextColor;
+    padding: 30px 50px;
+}
+
+.modal-header, .modal-footer
+{
+    background-color: $navBgColor;
+    color: $mainTextColor;
+}
+
+.modal-body
+{
+    background-color: $mainBgColor;
+    color: $mainTextColor;
+}
