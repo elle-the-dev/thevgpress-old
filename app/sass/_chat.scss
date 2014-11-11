@@ -1,0 +1,128 @@
+$chatLinkHoverBg: #000;
+
+#chat-modal
+{
+    border: 2px solid #000;
+    height: 100%;
+}
+
+#chat-sidebar
+{
+    border-right: 2px solid #000;
+    float: left;
+    height: 100%;
+    width: 25%;
+}
+
+#channels, #friends
+{
+    max-height: 50%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    h3
+    {
+        margin: 0.5em;
+        padding: 0;
+    }
+
+    ul
+    {
+        list-style-type: none;
+        padding: 0;
+
+        li.selected
+        {
+            background-color: $chatLinkHoverBg;
+        }
+
+        li > a
+        {
+            display: block;
+        }
+
+        li > a:hover
+        {
+            background-color: $chatLinkHoverBg;
+        }
+    }
+}
+
+#channels
+{
+}
+
+#friends
+{
+}
+
+#messages
+{
+    background-color: $secondaryBgColor;
+    height: 90%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    ul
+    {
+        list-style-type: none;
+        padding: 0;
+
+        li
+        {
+            img
+            {
+                max-width: 10%;
+            }
+
+            .message
+            {
+                padding: 1em;
+            }
+        }
+
+        li.sender
+        {
+            text-align: right;
+
+            img
+            {
+                float: right;
+                margin-left: 1em;
+            }
+        }
+
+        li.receiver
+        {
+            background-color: $mainBgColor;
+            img
+            {
+                float: left;
+                margin-right: 1em;
+            }
+        }
+    }
+}
+
+#message
+{
+    color: #000;
+    display: block;
+    float: left;
+    height: 10%;
+    overflow: hidden;
+    width: 65%;
+}
+
+#send
+{
+    float: left;
+    height: 10%;
+    width: 10%;
+}
+
+.messages-container
+{
+    height: 100%;
+    overflow: auto;
+}

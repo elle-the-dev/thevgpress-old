@@ -78,4 +78,6 @@ App::down(function()
 |
 */
 
+User::observe(new UserObserver);
+
 require app_path().'/filters.php';

@@ -7,8 +7,10 @@ $mainBgColor: #202020;
 $mainTextColor: #FFFFFF;
 $mainLinkColor: #7BCBB2;
 $mainFontFamily: "DejaVu Sans",verdana,Calibri,"Trebuchet MS",sans-serif;
+$secondaryBgColor: #303030;
 
 @import 'navbar';
+@import 'chat';
 
 @font-face
 {
@@ -20,9 +22,16 @@ html, body
 {
     background-color: $mainBgColor;
     font-family: $mainFontFamily;
+    height: 100%;
+    width: 100%;
 }
 
-a
+input, select, button
+{
+    color: #000;
+}
+
+a, a:hover
 {
     color: $mainLinkColor;
 }
@@ -30,6 +39,7 @@ a
 #content
 {
     color: $mainTextColor;
+    height: 80%;
     padding: 30px 50px;
 }
 
@@ -43,4 +53,12 @@ a
 {
     background-color: $mainBgColor;
     color: $mainTextColor;
+}
+
+.form-group.required .control-label:before
+{
+    color: red;
+    content: "*";
+    position: absolute;
+    margin-left: -15px;
 }

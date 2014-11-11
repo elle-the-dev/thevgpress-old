@@ -1,0 +1,12 @@
+.modal {
+  position: inherit !important;
+  display: block !important;
+  overflow: visible !important; }
+
+.fade {
+  opacity: 1 !important; }
+
+.login, .modal-content .close, .modal-content .btn-close {
+  display: none !important; }
+
+/*# sourceMappingURL=login.css.map */

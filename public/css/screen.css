@@ -8,6 +8,8 @@
   padding: 5px; }
   .navbar-default ul.nav li.dropdown:hover > ul.dropdown-menu {
     display: block; }
+  .navbar-default ul.nav li.dropdown:hover > a {
+    background-color: #284041; }
   .navbar-default .navbar-nav > li.active a {
     background-color: #202020;
     color: #FFFFFF; }
@@ -29,25 +31,106 @@
       color: #FFFFFF; }
     .navbar-default .navbar-nav > li ul, .navbar-default .navbar-nav > li.open ul {
       background-color: #406062;
+      border: none;
+      -webkit-box-shadow: 1px 1px 3px 1px #000;
+      -moz-box-shadow: 1px 1px 1px 1px #000;
+      box-shadow: 1px 1px 1px 1px #000;
       padding: 0; }
     .navbar-default .navbar-nav > li .dropdown-menu > li > a, .navbar-default .navbar-nav > li.open .dropdown-menu > li > a {
       color: #FFFFFF; }
+    .navbar-default .navbar-nav > li a.join, .navbar-default .navbar-nav > li.open a.join {
+      background-color: #BF0000; }
+    .navbar-default .navbar-nav > li a.join:hover, .navbar-default .navbar-nav > li.open a.join:hover {
+      background-color: #FF0000; }
 
 .navbar-brand {
   padding: 5px 20px 5px 45px; }
+
+#chat-modal {
+  border: 2px solid #000;
+  height: 100%; }
+
+#chat-sidebar {
+  border-right: 2px solid #000;
+  float: left;
+  height: 100%;
+  width: 25%; }
+
+#channels, #friends {
+  max-height: 50%;
+  overflow-x: hidden;
+  overflow-y: auto; }
+  #channels h3, #friends h3 {
+    margin: 0.5em;
+    padding: 0; }
+  #channels ul, #friends ul {
+    list-style-type: none;
+    padding: 0; }
+    #channels ul li.selected, #friends ul li.selected {
+      background-color: #000; }
+    #channels ul li > a, #friends ul li > a {
+      display: block; }
+    #channels ul li > a:hover, #friends ul li > a:hover {
+      background-color: #000; }
+
+#messages {
+  background-color: #303030;
+  height: 90%;
+  overflow-x: hidden;
+  overflow-y: auto; }
+  #messages ul {
+    list-style-type: none;
+    padding: 0; }
+    #messages ul li img {
+      max-width: 10%; }
+    #messages ul li .message {
+      padding: 1em; }
+    #messages ul li.sender {
+      text-align: right; }
+      #messages ul li.sender img {
+        float: right;
+        margin-left: 1em; }
+    #messages ul li.receiver {
+      background-color: #202020; }
+      #messages ul li.receiver img {
+        float: left;
+        margin-right: 1em; }
+
+#message {
+  color: #000;
+  display: block;
+  float: left;
+  height: 10%;
+  overflow: hidden;
+  width: 65%; }
+
+#send {
+  float: left;
+  height: 10%;
+  width: 10%; }
+
+.messages-container {
+  height: 100%;
+  overflow: auto; }
 
 @font-face {
   font-family: 'DejaVu Sans';
   src: url("/fonts/DejaVuSans.ttf") format("truetype"); }
 html, body {
   background-color: #202020;
-  font-family: "DejaVu Sans", verdana, Calibri, "Trebuchet MS", sans-serif; }
+  font-family: "DejaVu Sans", verdana, Calibri, "Trebuchet MS", sans-serif;
+  height: 100%;
+  width: 100%; }
 
-a {
+input, select, button {
+  color: #000; }
+
+a, a:hover {
   color: #7BCBB2; }
 
 #content {
   color: #FFFFFF;
+  height: 80%;
   padding: 30px 50px; }
 
 .modal-header, .modal-footer {
@@ -57,5 +140,11 @@ a {
 .modal-body {
   background-color: #202020;
   color: #FFFFFF; }
+
+.form-group.required .control-label:before {
+  color: red;
+  content: "*";
+  position: absolute;
+  margin-left: -15px; }
 
 /*# sourceMappingURL=screen.css.map */

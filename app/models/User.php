@@ -21,7 +21,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password', 'remember_token');
+	protected $hidden = array('remember_token');
+
+    /**
+     * The attributes autofillable from the join form
+     *
+     * @var array
+     */
+    protected $fillable = array('username', 'password', 'email');
+
+    /** used for validation, not to be stored in database */
+    public $password_confirmation = null;
 
     /**
      * The groups the user belongs to 
@@ -46,10 +56,47 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      */
     public function hasPower($key)
     {
-        return !!Group::powers()->whereIn('group_id', $this->groups)
+        return !is_null(Group::powers()->whereIn('group_id', $this->groups)
             ->where('powers.key', $key)
             ->where('user_id', $this->id)
-            ->first();
+            ->first());
+    }
+
+    /**
+     * Legacy function for hashing passwords
+     */
+    public static function hashPassword($password)
+    {
+        return sha1("Please Do not ".md5(sha1($password))." crack my site");
+    }
+
+    /**
+     * Validate User data - used in Observer
+     */
+    public function validate()
+    {
+        $rules = array(
+            'username' => 'required|alpha_dash|max:30',
+            'password' => 'required|min:6|confirmed',
+            'email'    => 'email'
+        );
+
+        if (!$this->id)
+            $rules['username'] .= '|unique:users';
+
+        $data = $this->toArray();
+        $data['password_confirmation'] = $this->password_confirmation;
+        $validator = Validator::make(
+            $data,
+            $rules
+        );
+
+        if ($validator->fails())
+        {
+            return $validator->messages();
+        }
+
+        return true;
     }
 
 }

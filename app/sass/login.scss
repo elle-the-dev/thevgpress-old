@@ -1,0 +1,19 @@
+// display login modal
+.modal
+{
+    position: inherit !important;
+    display: block !important;
+    overflow: visible !important;
+}
+
+.fade
+{
+    opacity: 1 !important;
+}
+
+// hide login button because it will break due to modal style changes
+// hide close modal buttons since they don't make sense here
+.login, .modal-content .close, .modal-content .btn-close
+{
+    display: none !important;
+}
