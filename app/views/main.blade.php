@@ -86,6 +86,8 @@
 
     @if (!$loggedInUser)
         @include ('loginModal')
+    @else
+        <div id="chat-modal"></div>
     @endif
 </body>
 

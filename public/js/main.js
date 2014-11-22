@@ -59,7 +59,10 @@ $(document).ready(function()
     {
         $('.chat').click(function()
         {
-            $('#chat-modal').modal('show');
+            $('#chat-modal').load('/chat', function()
+            {
+                $('#chat-modal').modal('show');
+            });
             return false;
         });
     }

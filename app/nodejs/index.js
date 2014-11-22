@@ -13,7 +13,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'thevgpress',
-    password : '',
+    password : 'A New Dawn, a New Day',
     database : 'thevgpress'
 });
 

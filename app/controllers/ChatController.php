@@ -47,9 +47,11 @@ class ChatController extends AuthController {
 
         $conversations = $senderConversations->union($receiverConversations)->get();
 
-        $this->layout->title = "Chat";
-        $this->layout->heading = "Chat";
-        $this->layout->content = View::make("chat", array('messages' => $messages, 'conversations' => $conversations, 'lastMessage' => $lastMessage));
+        $this->layout = null;
+        //$this->layout->title = "Chat";
+        //$this->layout->heading = "Chat";
+        //$this->layout->content = View::make("chat", array('messages' => $messages, 'conversations' => $conversations, 'lastMessage' => $lastMessage));
+        return View::make("chat", array('messages' => $messages, 'conversations' => $conversations, 'lastMessage' => $lastMessage));
     }
 
     public function messages($username)

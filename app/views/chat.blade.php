@@ -1,4 +1,4 @@
-<section id="chat-modal">
+<section id="chat-container">
 {{ Form::open(array('url' => '', 'class' => 'messages-container')) }}
 
     <div id="chat-sidebar">
