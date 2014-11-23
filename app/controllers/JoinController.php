@@ -31,7 +31,10 @@ class JoinController extends PageController {
             return $this->post('join');
         else
         {
-            Messaging::add('successes', 'Signup Successful.  Welcome to The VG Press!');
+            Messaging::add(
+                'successes',
+                'Signup Successful.  Welcome to The VG Press!'
+            );
             return $this->post('/');
         }
     }

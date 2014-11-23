@@ -6,12 +6,7 @@
             <h3>Conversations</h3>
             <ul>
                 @foreach ($conversations as $conversation)
-                    <li class="conversation-{{ $conversation->id }} @if (in_array($conversation->id, array($lastMessage->user_id_sender, $lastMessage->user_id_receiver))) selected @endif">
-                        <a href="{{ URL::to('chat') }}/{{ $conversation->username }}">
-                            <img src="{{ URL::to('/') }}/uploads/users/user_{{ $conversation->id }}/avatar" alt="[avatar]" />
-                            {{ $conversation->username }}
-                        </a>
-                    </li>
+                    @include ('chat-conversation')
                 @endforeach
             </ul>
         </section>
@@ -27,12 +22,19 @@
     <div id="messages">
         <ul>
             @foreach ($messages as $message)
-                <li class="{{ $message->user_id_sender == Auth::user()->id ? 'sender' : 'receiver' }}">
-                @include ('chat-message', array(
-                          'userId' => $message->user_id_sender
-                        , 'username' => $message->username
-                        , 'message' => $message->message
-                        , 'date' => $message->created_at
+                <li class="{{
+                        $message->user_id_sender == Auth::user()->id
+                            ? 'sender'
+                            : 'receiver'
+                    }}"
+                >
+                @include (
+                    'chat-message',
+                    array(
+                        'userId' => $message->user_id_sender
+                        'username' => $message->username,
+                        'message' => $message->message,
+                        'date' => $message->created_at,
                     )
                 )
                 </li>
@@ -40,9 +42,35 @@
         </ul>
     </div>
 
-    {{ Form::textarea('messages', '', array('placeholder' => 'type your message here', 'id' => 'message')) }}
-    {{ Form::submit('send', array('id' => 'send', 'class' => 'btn btn-primary')) }}
-    {{ Form::hidden('receiver-id', $conversations ? $conversations[0]->id : '', array('placeholder' => 'receiver', 'id' => 'receiver-id')) }}
+    {{
+        Form::textarea(
+            'messages',
+            '',
+            array(
+                'placeholder' => 'type your message here',
+                'id' => 'message'
+            )
+        )
+    }}
+    {{
+        Form::submit(
+            'send',
+            array(
+                'id' => 'send',
+                'class' => 'btn btn-primary'
+            )
+        )
+    }}
+    {{
+        Form::hidden(
+            'receiver-id',
+            $conversations ? $conversations[0]->id : '',
+            array(
+                'placeholder' => 'receiver',
+                'id' => 'receiver-id'
+            )
+        )
+    }}
 
 {{ Form::close() }}
 </section>
@@ -64,9 +92,21 @@ var socket = io.connect('{{ URL::to('/') }}:3000');
 
 $('form').submit(function()
 {
-    socket.emit('message', { message: $('#message').val(), receiverId: $('#receiver-id').val(), session: '{{ Session::getId() }}' });
+    socket.emit(
+        'message',
+        {
+            message: $('#message').val(),
+            receiverId: $('#receiver-id').val(),
+            session: '{{ Session::getId() }}'
+        }
+    );
 
-    appendMessage('sender', {{ Auth::user()->id }}, '{{ Auth::user()->username }}', $('#message').val());
+    appendMessage(
+        'sender',
+        {{ Auth::user()->id }},
+        '{{ Auth::user()->username }}',
+        $('#message').val()
+    );
 
     $('#message').val('');
     return false;
@@ -92,8 +132,16 @@ function appendMessage(className, senderId, senderUsername, messageText)
 {
     var message = $('#empty-message');
     message.find('.message').html(messageText);
-    message.find('img').attr('src', '{{ URL::to("/") }}/uploads/user_'+senderId+'/avatar').attr('alt', senderUsername);
+    message.find('img').attr(
+        'src',
+        '{{ URL::to("/") }}/uploads/user_'+senderId+'/avatar'
+    ).attr(
+        'alt',
+        senderUsername
+    );
     message.find('.date').html(moment().format('YYYY-MM-DD HH:mm:ss'));
-    $('#messages ul').append('<li class="'+className+'">'+message.html()+'</li>');
+    $('#messages ul').append(
+        '<li class="'+className+'">'+message.html()+'</li>'
+    );
 }
 </script>

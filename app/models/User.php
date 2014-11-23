@@ -7,21 +7,21 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait;
+    use UserTrait, RemindableTrait;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('remember_token');
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = array('remember_token');
 
     /**
      * The attributes autofillable from the join form
@@ -46,8 +46,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      */
     public function powers()
     {
-        $groupIds = GroupUser::where('user_id', $this->id)->lists('group_id');
-        $powerIds = GroupPower::whereIn('group_id', $groupIds)->lists('power_id');
+        $groupIds = GroupUser::where('user_id', $this->id)
+            ->lists('group_id');
+
+        $powerIds = GroupPower::whereIn('group_id', $groupIds)
+            ->lists('power_id');
+
         return Power::whereIn('id', $powerIds);
     }
 

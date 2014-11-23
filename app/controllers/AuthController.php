@@ -6,7 +6,11 @@ class AuthController extends PageController {
     {
         $this->requiredPower = $requiredPower;
         //$this->beforeFilter('@powerCheck');
-        Cache::put('user:'.Session::getId(), Auth::user()->id, Config::get('app.chat_timeout'));
+        Cache::put(
+            'user:'.Session::getId(),
+            Auth::user()->id,
+            Config::get('app.chat_timeout')
+        );
     }
 
     public function powerCheck($route, $request)

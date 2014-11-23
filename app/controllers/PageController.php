@@ -19,8 +19,14 @@ class PageController extends BaseController {
     {
         if (Request::ajax())
         {
-            $merge = is_null($redirect) ? array('refresh' => $refresh) : array('redirect' => $redirect);
-            $messages = Messaging::has('errors') ? Messaging::all() : Messaging::all(false);
+            $merge = is_null($redirect)
+                ? array('refresh' => $refresh) 
+                : array('redirect' => $redirect);
+
+            $messages = Messaging::has('errors') 
+                ? Messaging::all() 
+                : Messaging::all(false);
+
             return json_encode(
                 array_merge(
                     $messages ?: array(),
@@ -30,7 +36,9 @@ class PageController extends BaseController {
         }
         else
         {
-            return Redirect::to(is_null($redirect) ? Request::server('HTTP_REFERER') : $redirect)->withInput();
+            return Redirect::to(is_null($redirect) 
+                ? Request::server('HTTP_REFERER') 
+                : $redirect)->withInput();
         }
     }
 

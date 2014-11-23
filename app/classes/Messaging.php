@@ -11,9 +11,11 @@ class Messaging {
     /**
      * Add a message to the session
      *
-     * $type is is passed in the form of [basetype.target] where target indicates the target
+     * $type is is passed in the form of [basetype.target] where 
+     * target indicates the target
      * HTML element ID to place the messages when needed.
-     * For example, errors.errors-comments would look for an element #errors-comments
+     * For example, errors.errors-comments would look for an
+     * element #errors-comments
      * while still being grouped under errors for message purposes
      *
      * @param string    $type       the type of message (error/success/info)
@@ -28,7 +30,8 @@ class Messaging {
 
     /**
      * Retrieve messages from the session
-     * @param string    $type       the type of messages to retrieve (error/success/info)
+     * @param string    $type       the type of messages to retrieve
+                                    (error/success/info)
      * @param bool      $clear      whether to delete messages after retrieving
      * @return mixed    array or json string
      */
@@ -56,7 +59,9 @@ class Messaging {
      */
     public static function has($type)
     {
-        return Session::has('reportBag') ? Session::get('reportBag')->has($type) : false;
+        return Session::has('reportBag') 
+            ? Session::get('reportBag')->has($type)
+            : false;
     }
 
     /**
@@ -87,7 +92,8 @@ class Messaging {
                 }
                 else
                 {
-                    // if no target is specified, use the key to maintain consistent structure
+                    // if no target is specified,
+                    // use the key to maintain consistent structure
                     $return['messages'][$key][$key] = $message;
                 }
             }
