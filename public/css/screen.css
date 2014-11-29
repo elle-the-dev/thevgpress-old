@@ -50,7 +50,8 @@
   border: 2px solid #000;
   height: 100%; }
   #chat-container .modal-dialog, #chat-modal .modal-dialog {
-    height: 80%; }
+    height: 80%;
+    width: 65%; }
   #chat-container .modal-content, #chat-modal .modal-content {
     background-color: #202020 !important;
     height: 100%; }
@@ -68,7 +69,9 @@
   overflow-x: hidden;
   overflow-y: auto; }
   #channels h3, #friends h3 {
-    margin: 0.5em;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0.5em 0;
     padding: 0; }
   #channels ul, #friends ul {
     list-style-type: none;

@@ -69,6 +69,54 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
+     * List of conversations
+     *
+     * A conversation is the connection between two users where one user
+     * has sent or received a message from another user
+     *
+     * @return array
+     */
+    public function conversations()
+    {
+        return $this->startedConversations()
+            ->union($this->receivedConversations())
+            ->get();
+    }
+
+    /**
+     * Conversations created by the given user sending a message
+     *
+     * @return array
+     */
+    public function startedConversations()
+    {
+        // list of users with which the logged in user has conversations
+        return DB::table('users')
+            ->select('users.id', 'username')
+            ->join('messages', 'users.id', '=', 'messages.user_id_sender')
+            ->where('user_id_receiver', $this->id)
+            ->groupBy('users.id')
+            ->orderBy('messages.created_at', 'desc');
+    }
+
+    /**
+     * Conversations created by the given user receiving a message
+     *
+     * @return array
+     */
+    public function receivedConversations()
+    {
+        // must count users who logged in user has received a message from
+        // but has not messaged
+        return DB::table('users')
+            ->select('users.id', 'username')
+            ->join('messages', 'users.id', '=', 'messages.user_id_sender')
+            ->where('user_id_receiver', $this->id)
+            ->groupBy('users.id')
+            ->orderBy('messages.created_at', 'desc');
+    }
+
+    /**
      * Legacy function for hashing passwords
      * @return string
      */

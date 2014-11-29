@@ -18,8 +18,9 @@ Route::post('loginPost', "LoginController@loginPost");
 Route::any('logout', "LoginController@logout");
 Route::get('join', "JoinController@join");
 Route::post('joinPost', "JoinController@joinPost");
+Route::get('forum-boards/{id}', "ForumBoardController@forumBoard");
 
-// routes with permisisons - should all have 'before' => 'auth'
+// routes with permissions - should all have 'before' => 'auth'
 Route::any(
     'chat',
     array('before' => 'auth:TEST', 'uses' =>"ChatController@chat")

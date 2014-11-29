@@ -36,6 +36,8 @@ class JoinController extends PageController {
             'Signup Successful.  Welcome to The VG Press!'
         );
 
+        Auth::login($user);
+
         return $this->post('/');
     }
 

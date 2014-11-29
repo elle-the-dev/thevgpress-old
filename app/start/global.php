@@ -81,4 +81,10 @@ App::down(function()
 User::observe(new UserObserver);
 View::share('loggedInUser', Auth::user());
 
+function lastQuery()
+{
+    $log = DB::getQueryLog();
+    print_r(end($log));
+}
+
 require app_path().'/filters.php';

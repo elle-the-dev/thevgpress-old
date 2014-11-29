@@ -41,6 +41,9 @@ class PageController extends BaseController {
                 ? Messaging::all() 
                 : Messaging::all(false);
 
+            // includes any feedback messages
+            // and instructions on whether to reload the page or
+            // to redirect to a different page
             return json_encode(
                 array_merge(
                     $messages ?: array(),
@@ -53,10 +56,11 @@ class PageController extends BaseController {
             // if not by AJAX, gotta send them somewhere
             // back from whence they came if no redirect specified
             return Redirect::to(
-                is_null($redirect) 
-                ? Request::server('HTTP_REFERER') 
-                : $redirect
-            )->withInput();
+                    is_null($redirect) 
+                    ? Request::server('HTTP_REFERER') 
+                    : $redirect
+                )
+                ->withInput();
         }
     }
 

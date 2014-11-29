@@ -9,6 +9,7 @@ class ChatController extends PageController {
      */
     public function chat($username=null)
     {
+        // most recent message sent or received by the logged in user
         $lastMessage = Message::join('users', 'users.id', '=', 'user_id_sender')
             ->where('user_id_receiver', $this->user->id)
             ->orWhere('user_id_sender', $this->user->id)
@@ -26,34 +27,15 @@ class ChatController extends PageController {
             // autoload the conversation with the most recent 
             // received message for the user
             $messages = $this->getMessages($lastMessage->username);
-            $log = DB::getQueryLog();
         }
 
         // no messages, set a default
         if (!isset($messages) || is_null($messages))
             $messages = array();
 
-        // list of users with which the logged in user has conversations
-        $senderConversations = DB::table('users')
-            ->select('users.id', 'username')
-            ->join('messages', 'users.id', '=', 'messages.user_id_sender')
-            ->where('user_id_receiver', $this->user->id)
-            ->groupBy('users.id')
-            ->orderBy('messages.created_at', 'desc');
+        $conversations = $this->user->conversations();
 
-        // must count users who logged in user has received a message from
-        // but has not messaged
-        $receiverConversations = DB::table('users')
-            ->select('users.id', 'username')
-            ->join('messages', 'users.id', '=', 'messages.user_id_receiver')
-            ->where('user_id_sender', $this->user->id)
-            ->groupBy('users.id')
-            ->orderBy('messages.created_at', 'desc');
-
-        $conversations = $senderConversations->union($receiverConversations)
-            ->get();
-
-       $view = View::make(
+        $view = View::make(
             "chat",
             array(
                 'messages' => $messages,
@@ -69,15 +51,8 @@ class ChatController extends PageController {
         {
             $this->layout->title = "Chat";
             $this->layout->heading = "Chat";
-            $this->layout->content = View::make(
-                "chat",
-                array(
-                    'messages' => $messages,
-                    'conversations' => $conversations,
-                    'lastMessage' => $lastMessage
-                )
-            );
-        } 
+            $this->layout->content = $view;
+        }
     }
 
     /**
