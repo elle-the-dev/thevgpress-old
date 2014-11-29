@@ -11,13 +11,28 @@
 |
 */
 
+// public routes
 Route::get('/', "HomeController@showWelcome" );
 Route::get('login', "LoginController@login");
 Route::post('loginPost', "LoginController@loginPost");
 Route::any('logout', "LoginController@logout");
 Route::get('join', "JoinController@join");
 Route::post('joinPost', "JoinController@joinPost");
-Route::any('chat', "ChatController@chat");
-Route::any('chat/{username}', "ChatController@chat");
-Route::post('chatPost', "ChatController@chatPost");
-Route::post('messages/{username}', "ChatController@messages");
+
+// routes with permisisons - should all have 'before' => 'auth'
+Route::any(
+    'chat',
+    array('before' => 'auth:TEST', 'uses' =>"ChatController@chat")
+);
+Route::any(
+    'chat/{username}',
+    array('before' => 'auth:TEST', "ChatController@chat")
+);
+Route::post(
+    'chatPost',
+    array('before' => 'auth:TEST', "ChatController@chatPost")
+);
+Route::post(
+    'messages/{username}',
+    array('before' => 'auth:TEST', "ChatController@messages")
+);

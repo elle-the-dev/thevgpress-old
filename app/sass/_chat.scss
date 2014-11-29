@@ -1,9 +1,25 @@
 $chatLinkHoverBg: #000;
 
-#chat-container
+#chat-container, #chat-modal
 {
     border: 2px solid #000;
     height: 100%;
+
+    .modal-dialog
+    {
+        height: 80%;
+    }
+
+    .modal-content
+    {
+        background-color: $mainBgColor !important;
+        height: 100%;
+    }
+
+    .modal-body
+    {
+        height: 100%;
+    }
 }
 
 #chat-sidebar

@@ -27,16 +27,16 @@ class JoinController extends PageController {
     {
         $user = new User(Input::all());
         $user->password_confirmation = Input::get('password_confirmation');
+
         if (!$user->save())
             return $this->post('join');
-        else
-        {
-            Messaging::add(
-                'successes',
-                'Signup Successful.  Welcome to The VG Press!'
-            );
-            return $this->post('/');
-        }
+
+        Messaging::add(
+            'successes',
+            'Signup Successful.  Welcome to The VG Press!'
+        );
+
+        return $this->post('/');
     }
 
 }

@@ -1,17 +1,17 @@
 <?php
-class ChatController extends AuthController {
+class ChatController extends PageController {
 
-    public function __construct()
-    {
-        parent::__construct('TEST');
-    }
-
+    /**
+     * Display the chat window
+     *
+     * @param string    $username
+     * @return View
+     */
     public function chat($username=null)
     {
-        $loggedInUser = Auth::user();
         $lastMessage = Message::join('users', 'users.id', '=', 'user_id_sender')
-            ->where('user_id_receiver', $loggedInUser->id)
-            ->orWhere('user_id_sender', $loggedInUser->id)
+            ->where('user_id_receiver', $this->user->id)
+            ->orWhere('user_id_sender', $this->user->id)
             ->orderBy('messages.created_at', 'desc')
             ->take(1)
             ->first();
@@ -37,24 +37,38 @@ class ChatController extends AuthController {
         $senderConversations = DB::table('users')
             ->select('users.id', 'username')
             ->join('messages', 'users.id', '=', 'messages.user_id_sender')
-            ->where('user_id_receiver', $loggedInUser->id)
+            ->where('user_id_receiver', $this->user->id)
             ->groupBy('users.id')
             ->orderBy('messages.created_at', 'desc');
 
+        // must count users who logged in user has received a message from
+        // but has not messaged
         $receiverConversations = DB::table('users')
             ->select('users.id', 'username')
             ->join('messages', 'users.id', '=', 'messages.user_id_receiver')
-            ->where('user_id_sender', $loggedInUser->id)
+            ->where('user_id_sender', $this->user->id)
             ->groupBy('users.id')
             ->orderBy('messages.created_at', 'desc');
 
         $conversations = $senderConversations->union($receiverConversations)
             ->get();
 
-        $this->layout = null;
-        /*
-            //$this->layout->title = "Chat";
-            //$this->layout->heading = "Chat";
+       $view = View::make(
+            "chat",
+            array(
+                'messages' => $messages,
+                'conversations' => $conversations,
+                'lastMessage' => $lastMessage
+            )
+        );
+
+        // AJAX load means chat in a modal, so don't use a layout
+        if (Request::ajax())
+            return $view;
+        else
+        {
+            $this->layout->title = "Chat";
+            $this->layout->heading = "Chat";
             $this->layout->content = View::make(
                 "chat",
                 array(
@@ -63,42 +77,47 @@ class ChatController extends AuthController {
                     'lastMessage' => $lastMessage
                 )
             );
-        */
-        return View::make(
-            "chat",
-            array(
-                'messages' => $messages,
-                'conversations' => $conversations,
-                'lastMessage' => $lastMessage
-            )
-        );
+        } 
     }
 
+    /**
+     * Display chat messages
+     *
+     * @param string    $username
+     * @return View
+     */
     public function messages($username)
     {
-        $loggedInUser = Auth::user();
+        $this->layout = null;
         $messages = $this->getMessages($username);
         foreach ($messages as $message)
         {
-            $class = $message->user_id_receiver == $loggedInUser->id
+            $class = $message->user_id_receiver == $this->user->id
                 ? 'receiver'
                 : 'sender';
-            echo '<li class="'.$class.'">';
-            echo View::make(
-                'chat-message',
-                array(
-                    'userId' => $message->user_id_sender,
-                    'username' => $message->username,
-                    'message' => $message->message
+
+            return '<li class="'.$class.'">'
+                .View::make(
+                    'chat-message',
+                    array(
+                        'userId' => $message->user_id_sender,
+                        'username' => $message->username,
+                        'message' => $message->message
+                    )
                 )
-            );
-            echo '</li>';
+                .'</li>';
         }
     }
 
+    /**
+     * Get all messages for a given user
+     *
+     * @param string    $username
+     * @return array
+     */
     private function getMessages($username)
     {
-        $userId = Auth::user()->id;
+        $userId = $this->user->id;
         return Message::join(
                 DB::raw('users sender'),
                 'sender.id',

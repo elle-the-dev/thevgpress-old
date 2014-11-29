@@ -13,13 +13,13 @@
 
 App::before(function($request)
 {
-	//
+    //
 });
 
 
 App::after(function($request, $response)
 {
-	//
+    //
 });
 
 /*
@@ -33,25 +33,25 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
+Route::filter('auth', function($route, $request, $requiredPower)
 {
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		else
-		{
-			return Redirect::guest('login');
-		}
-	}
+    $loggedInUser = Auth::user();
+    //if (!$loggedInUser->hasPower($requiredPower))
+    //    App::abort(403, 'Forbidden');
+
+    // to verify the current user ID against the session
+    // for use with nodejs and chat server authentication
+    Cache::put(
+        'user:'.Session::getId(),
+        $loggedInUser->id,
+        Config::get('app.chat_timeout')
+    );
 });
 
 
 Route::filter('auth.basic', function()
 {
-	return Auth::basic();
+    return Auth::basic();
 });
 
 /*
@@ -67,7 +67,8 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+    if (Auth::check())
+        return Redirect::to('/');
 });
 
 /*
@@ -83,8 +84,8 @@ Route::filter('guest', function()
 
 Route::filter('csrf', function()
 {
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+    if (Session::token() != Input::get('_token'))
+    {
+        throw new Illuminate\Session\TokenMismatchException;
+    }
 });

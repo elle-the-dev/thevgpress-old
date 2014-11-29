@@ -46,9 +46,16 @@
 .navbar-brand {
   padding: 5px 20px 5px 45px; }
 
-#chat-container {
+#chat-container, #chat-modal {
   border: 2px solid #000;
   height: 100%; }
+  #chat-container .modal-dialog, #chat-modal .modal-dialog {
+    height: 80%; }
+  #chat-container .modal-content, #chat-modal .modal-content {
+    background-color: #202020 !important;
+    height: 100%; }
+  #chat-container .modal-body, #chat-modal .modal-body {
+    height: 100%; }
 
 #chat-sidebar {
   border-right: 2px solid #000;

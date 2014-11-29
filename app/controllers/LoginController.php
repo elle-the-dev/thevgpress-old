@@ -28,15 +28,14 @@ class LoginController extends PageController {
         $username = Input::get('username');
         $password = User::hashPassword(Input::get('password'));
         $credentials = array('username' => $username, 'password' => $password);
-        if (Auth::attempt($credentials, true))
-        {
-            return $this->post('/');
-        }
-        else
+
+        if (!Auth::attempt($credentials, true))
         {
             Messaging::add('errors.login-errors', 'Login failed');
             return $this->post('login');
         }
+
+        return $this->post('/');
     }
 
     /**

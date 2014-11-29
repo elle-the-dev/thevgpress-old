@@ -35,6 +35,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     /**
      * The groups the user belongs to 
+     * @return mixed
      */
     public function groups()
     {
@@ -43,31 +44,33 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     /**
      * The powers the user has
+     * @return Builder
      */
     public function powers()
     {
         $groupIds = GroupUser::where('user_id', $this->id)
             ->lists('group_id');
 
-        $powerIds = GroupPower::whereIn('group_id', $groupIds)
+        // array(-1) fallback since in whereIn will fail against empty array
+        // still want to add to query builder to allow chaining
+        $powerIds = GroupPower::whereIn('group_id', $groupIds ?: array(-1))
             ->lists('power_id');
 
-        return Power::whereIn('id', $powerIds);
+        return Power::whereIn('id', $powerIds ?: array(-1));
     }
 
     /**
      * If the user has a power with the given key
+     * @return bool
      */
     public function hasPower($key)
     {
-        return !is_null(Group::powers()->whereIn('group_id', $this->groups)
-            ->where('powers.key', $key)
-            ->where('user_id', $this->id)
-            ->first());
+        return in_array($key, $this->powers()->lists('key'));
     }
 
     /**
      * Legacy function for hashing passwords
+     * @return string
      */
     public static function hashPassword($password)
     {
@@ -76,6 +79,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     /**
      * Validate User data - used in Observer
+     * @return mixed
      */
     public function validate()
     {

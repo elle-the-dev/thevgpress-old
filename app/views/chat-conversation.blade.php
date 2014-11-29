@@ -1,10 +1,10 @@
-<li class="conversation-{{ $conversation->id }}
+<li class="conversation-{{ $id }}
     @if (
         in_array(
-            $conversation->id, 
+            $id, 
             array(
-                $lastMessage->user_id_sender,
-                $lastMessage->user_id_receiver
+                $userIdSender,
+                $userIdReceiver
             )
         )
     )
@@ -12,12 +12,12 @@
     @endif"
 >
     <a href="
-        {{ URL::to('chat') }}/{{$conversation->username }}
+        {{ URL::to('chat') }}/{{ $username }}
     ">
         <img src=
-            "{{ URL::to('/') }}/uploads/users/user_{{ $conversation->id }}/avatar"
+            "{{ URL::to('/') }}/uploads/users/user_{{ $id }}/avatar"
             alt="[avatar]"
         >
-        {{ $conversation->username }}
+        {{ $username }}
     </a>
 </li>

@@ -7,13 +7,17 @@ $(document).ready(function()
      */
     $('form.ajax').submit(function()
     {
-        $.post($(this).attr('action'), $(this).serialize()).done(function(data)
+        $.post($(this).attr('action'), $(this).serialize())
+        .done(function(data)
         {
             try
             {
                 var json = $.parseJSON(data);
                 var messages = json.messages;
-                if (typeof messages != "undefined" && typeof messages.errors != "undefined")
+
+                if (typeof messages != "undefined" 
+                    && typeof messages.errors != "undefined"
+                )
                 {
                     showMessages(messages);
                 }
@@ -32,7 +36,8 @@ $(document).ready(function()
                 // invalid JSON
                 showMessages({messages:{errors:{0:e}}});
             }
-        }).fail(function(data)
+        })
+        .fail(function(data)
         {
             showMessages({messages:{errors:{0:data.responseText}}});
         });
@@ -59,7 +64,7 @@ $(document).ready(function()
     {
         $('.chat').click(function()
         {
-            $('#chat-modal').load('/chat', function()
+            $('#chat-modal .modal-body').load('/chat', function()
             {
                 $('#chat-modal').modal('show');
             });
@@ -67,7 +72,8 @@ $(document).ready(function()
         });
     }
 
-    // autofocus in modal -- html5 autofocus doesn't function properly with the modal
+    // autofocus in modal -- html5 autofocus doesn't 
+    // function properly with the modal
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();
     });

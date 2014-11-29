@@ -6,7 +6,15 @@
             <h3>Conversations</h3>
             <ul>
                 @foreach ($conversations as $conversation)
-                    @include ('chat-conversation')
+                    @include (
+                        'chat-conversation',
+                        array(
+                            'id' => $conversation->id,
+                            'username' => $conversation->username,
+                            'userIdSender' => $lastMessage->user_id_sender,
+                            'userIdReceiver' => $lastMessage->user_id_receiver
+                        )
+                    )
                 @endforeach
             </ul>
         </section>
@@ -31,7 +39,7 @@
                 @include (
                     'chat-message',
                     array(
-                        'userId' => $message->user_id_sender
+                        'userId' => $message->user_id_sender,
                         'username' => $message->username,
                         'message' => $message->message,
                         'date' => $message->created_at,
@@ -77,15 +85,14 @@
 
 <div style="display: none" id="empty-message">
     @include ('chat-message', array(
-              'userId' => ''
-            , 'username' => ''
-            , 'message' => ''
-            , 'date' => ''
+            'userId' => '',
+            'username' => '',
+            'message' => '',
+            'date' => ''
         )
     )
 </div>
 
-<script src="{{ URL::to('/') }}:3000/socket.io/socket.io.js"></script>
 
 <script>
 var socket = io.connect('{{ URL::to('/') }}:3000');
@@ -103,8 +110,8 @@ $('form').submit(function()
 
     appendMessage(
         'sender',
-        {{ Auth::user()->id }},
-        '{{ Auth::user()->username }}',
+        {{ $loggedInUser->id }},
+        '{{ $loggedInUser->username }}',
         $('#message').val()
     );
 
