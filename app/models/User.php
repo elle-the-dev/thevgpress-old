@@ -84,13 +84,31 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
+     * Total comments posted by the user
+     * @return int
+     */
+    public function commentCount()
+    {
+        return $this->hasMany('Comment')->count();
+    }
+
+    /**
+     * Total news posts by the user
+     * @return int
+     */
+    public function newsCount()
+    {
+        return $this->hasMany('News')->count();
+    }
+
+    /**
      * Conversations created by the given user sending a message
-     *
      * @return array
      */
     public function startedConversations()
     {
         // list of users with which the logged in user has conversations
+        // Using DB::table so we can use union in the conversations() function
         return DB::table('users')
             ->select('users.id', 'username')
             ->join('messages', 'users.id', '=', 'messages.user_id_sender')
@@ -101,13 +119,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     /**
      * Conversations created by the given user receiving a message
-     *
      * @return array
      */
     public function receivedConversations()
     {
         // must count users who logged in user has received a message from
-        // but has not messaged
+        // but has not messaged. Using DB::table so we can use union
+        // in the conversations() function
         return DB::table('users')
             ->select('users.id', 'username')
             ->join('messages', 'users.id', '=', 'messages.user_id_sender')

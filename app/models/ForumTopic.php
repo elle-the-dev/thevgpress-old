@@ -8,40 +8,73 @@ class ForumTopic extends Eloquent {
      */
     protected $table = 'forum_topics';
 
+    /**
+     * User who created the topic
+     *
+     * @return User
+     */
     public function author()
     {
         return $this->belongsTo('User', 'user_id');
     }
 
+    /**
+     * Forum Topic comments
+     *
+     * @return mixed
+     */
     public function comments()
     {
-        return $this->hasMany('Comment', 'external_id');
+        return $this->hasMany('Comment');
     }
 
-    public function lastPost()
+    /**
+     * The OP comment in a forum topic
+     *
+     * @return Comment
+     */
+    public function firstComment()
     {
-        $comments = $this->comments;
-        return $comments ? $comments->max('created_at') : null;
+        $comments = $this->comments();
+        return $comments
+            ? $comments->orderBy('created_at', 'desc')->take(1)->first()
+            : null;
     }
 
-    public function replies()
+    /**
+     * The most recent comment in a forum topic
+     *
+     * @return Comment
+     */
+    public function lastComment()
     {
-        return $this->comments()->count() - 1;
+        $comments = $this->comments();
+        return $comments 
+            ? $comments->orderBy('created_at')->take(1)->first()
+            : null;
     }
 
+    /**
+     * Comments not not having been seen by the user yet
+     *
+     * @return mixed
+     */
     public function unread()
     {
         if (Auth::guest())
-            return $this->comments()->count();
+            return $this->comments();
 
         $user = Auth::user();
         return $this->hasMany('ForumTopicRead')
             ->where('user_id', $user->id);
     }
 
+    /**
+     * Up and down votes sum 
+     */
     public function votes()
     {
-        return 0;
+        return $this->firstComment()->votes();
     }
 
 }

@@ -18,7 +18,8 @@ Route::post('loginPost', "LoginController@loginPost");
 Route::any('logout', "LoginController@logout");
 Route::get('join', "JoinController@join");
 Route::post('joinPost', "JoinController@joinPost");
-Route::get('forum-boards/{id}', "ForumBoardController@forumBoard");
+Route::get('forum/{board}', "ForumBoardController@forumBoard");
+Route::get('forum/{board}/{topic}', "ForumTopicController@forumTopic");
 
 // routes with permissions - should all have 'before' => 'auth'
 Route::any(

@@ -9,19 +9,23 @@
         <th>Last Post</th>
     </tr>
 
-    @foreach ($topics as $topic)
+    @foreach ($board->topics as $topic)
 
         <tr>
-            <td>{{{ $topic->votes }}}</td>
+            <td class="votes">{{{ $topic->votes() }}}</td>
             <td>
-                <a href="{{ URL::to('forum-topics/'.$topic->slug) }}">
+                <a href="{{ URL::to('forum/'.$board->slug.'/'.$topic->slug) }}">
                     {{{ $topic->title }}}
                 </a>
             </td>
-            <td>{{{ $topic->replies() }}}</td>
+            <td>{{{ $topic->comments()->count()-1 }}}</td>
             <td>{{{ $topic->unread()->count() }}}</td>
-            <td>{{{ $topic->author->username }}}</td>
-            <td>{{{ $topic->lastPost() }}}</td>
+            <td>
+                <a href="{{ URL::to('users/'.$topic->author->username) }}">
+                    {{{ $topic->author->username }}}
+                </a>
+            </td>
+            <td>{{{ $topic->lastComment()->created_at }}}</td>
         </tr>
 
     @endforeach

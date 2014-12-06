@@ -9,7 +9,7 @@ class HomeController extends PageController {
 
         $board = ForumBoard::find(1);
         $topics = $board->topics;
-        $topics[0]->lastPost();
+        //$topics[0]->lastPost();
     }
 
 }

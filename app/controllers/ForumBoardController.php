@@ -13,21 +13,19 @@ class ForumBoardController extends PageController {
     /**
      * registration form
      */
-    public function forumBoard($id)
+    public function forumBoard($slug)
     {
-        $board = ForumBoard::find($id);
+        $board = ForumBoard::where('slug', $slug)->first();
 
         if (is_null($board))
             throw new NotFoundHttpException;
-
-        $topics = $board->topics;
 
         $this->layout->title = $board->title;
         $this->layout->heading = $board->title;
         $this->layout->content = View::make(
             'forum-board',
             array(
-                'topics' => $topics
+                'board' => $board,
             )
         );
     }

@@ -8,4 +8,14 @@ class Comment extends Eloquent {
      */
     protected $table = 'comments';
 
+    public function author()
+    {
+        return $this->belongsTo('User', 'user_id');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany('CommentSetting')->sum('vote');
+    }
+
 }
