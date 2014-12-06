@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ForumTopicController extends PageController {
 
     /**
-     * registration form
+     * List comments within a given forum topic
      */
     public function forumTopic($boardSlug, $topicSlug)
     {
