@@ -31,7 +31,7 @@ class Messaging {
     /**
      * Retrieve messages from the session
      * @param string    $type       the type of messages to retrieve
-                                    (error/success/info)
+     *                              (error/success/info)
      * @param bool      $clear      whether to delete messages after retrieving
      * @return mixed    array or json string
      */
