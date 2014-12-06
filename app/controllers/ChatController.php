@@ -65,13 +65,15 @@ class ChatController extends PageController {
     {
         $this->layout = null;
         $messages = $this->getMessages($username);
+        $output = "";
+
         foreach ($messages as $message)
         {
             $class = $message->user_id_receiver == $this->user->id
                 ? 'receiver'
                 : 'sender';
 
-            return '<li class="'.$class.'">'
+            $output .= '<li class="'.$class.'">'
                 .View::make(
                     'chat-message',
                     array(
@@ -82,6 +84,8 @@ class ChatController extends PageController {
                 )
                 .'</li>';
         }
+
+        return $output;
     }
 
     /**
