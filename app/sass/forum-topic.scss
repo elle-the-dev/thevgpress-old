@@ -1,0 +1,75 @@
+@import 'definitions';
+
+section#comments
+{
+    height: 100%;
+
+    .comment-container:nth-child(odd)
+    {
+        background-color: $secondaryBgColor;
+    }
+
+    .comment-container:nth-child(even)
+    {
+        background-color: $tertiaryBgColor;
+    }
+}
+
+.comment-container
+{
+    border-left: 20em solid #00FFFF;
+    overflow: hidden;
+    padding-left: 20em;
+
+    .sidebar
+    {
+        background-color: #FF0000;
+        float: left;
+        height: 100%;
+        margin-left: -40em;
+        width: 20em;
+        z-index: 99;
+
+        .avatar, .username
+        {
+            text-align: center;
+        }
+
+        .username
+        {
+            font-weight: bold;
+        }
+    }
+
+    .content
+    {
+        margin-left: -20em;
+
+        .topbar
+        {
+            background-color: #00FF00;
+            overflow: hidden;
+            
+            .created-at
+            {
+                color: $subduedTextColor;
+                float: left;
+            }
+
+            .votes
+            {
+                float: right;
+            }
+        }
+
+        .comment
+        {
+            background-color: #0000FF;
+        }
+
+        .updated-at
+        {
+            font-size: 0.8em;
+        }
+    }
+}

@@ -1,28 +1,46 @@
 <section id="comments">
-@foreach ($topic->comments as $comment)
-
-    <div>
-        <div>{{ $comment->author->username }}</div>
-        <div>Country: </div>
-        <div>Comments: {{ $comment->author->commentCount() }}</div>
-        <div>News Posts: {{ $comment->author->newsCount() }}</div>
-        <div>Joined: {{ $comment->author->created_at }}</div>
-    </div>
-
-    <div>
-        <div>
-            <div>{{ $comment->created_at }}</div>
-            <div>{{ $comment->votes() }}</div>
-        </div>
-
-        <div>
-            {{ $comment->comment }}
-        </div>
-
-        <div>
-            {{ $comment->updated_at }}
-        </div>
-    </div>
-
-@endforeach
+    @foreach ($topic->comments as $comment)
+        @include ('comment', array('comment' => $comment))
+    @endforeach
 </section>
+
+{{
+    Form::open(
+        array(
+            'url' => URL::to('comment'),
+            'class' => 'form-horizontal ajax'
+        )
+    )
+}}
+
+    {{
+        Form::textarea(
+            'comment',
+            '',
+            array(
+                'id' => 'comment',
+                'class' => 'form-control',
+                'placeholder' => 'comment'
+            )
+        )
+    }}
+
+    {{
+        Form::submit(
+            'Submit',
+            array(
+                'class' => 'btn btn-primary'
+            )
+        )
+    }}
+
+    {{
+        Form::button(
+            'Preview',
+            array(
+                'class' => 'btn btn-info'
+            )
+        )
+    }}
+
+{{ Form::close() }}

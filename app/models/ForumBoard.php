@@ -18,9 +18,14 @@ class ForumBoard extends Eloquent implements SluggableInterface {
         'save_to' => 'slug'
     );
 
+    /**
+     * Forum topics belonging to the forum board
+     * @return array
+     */
     public function topics()
     {
-        return $this->hasMany('ForumTopic');
+        return $this->hasMany('ForumTopic')
+            ->orderBy('last_commented_at', 'desc');
     }
 
 }

@@ -102,6 +102,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
+     * Placement on the high score leaderboard
+     * @return int
+     */
+    public function rank()
+    {
+        // add 1 since if there's 1 person ahead of you, you're second
+        return self::where('score', '>', $this->score)->count() + 1;
+    }
+
+    /**
      * Conversations created by the given user sending a message
      * @return array
      */

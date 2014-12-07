@@ -25,7 +25,7 @@
                     {{{ $topic->author->username }}}
                 </a>
             </td>
-            <td>{{{ $topic->lastComment()->created_at }}}</td>
+            <td>{{{ $topic->last_commented_at }}}</td>
         </tr>
 
     @endforeach

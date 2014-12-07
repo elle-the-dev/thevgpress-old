@@ -22,6 +22,7 @@ class ForumTopicController extends PageController {
 
         $this->layout->title = $topic->title;
         $this->layout->heading = $topic->title;
+        $this->layout->styles = array('css/forum-topic.css');
         $this->layout->content = View::make(
             'forum-topic',
             array(
