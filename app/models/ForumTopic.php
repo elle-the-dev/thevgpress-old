@@ -70,11 +70,11 @@ class ForumTopic extends Eloquent {
     }
 
     /**
-     * Up and down votes sum 
+     * Up and down likes sum 
      */
-    public function votes()
+    public function likes($formatted=false)
     {
-        return $this->firstComment()->votes();
+        return $this->firstComment()->likes($formatted);
     }
 
 }

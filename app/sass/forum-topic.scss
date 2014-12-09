@@ -2,7 +2,7 @@
 
 section#comments
 {
-    height: 100%;
+    margin-bottom: 1em;
 
     .comment-container:nth-child(odd)
     {
@@ -13,63 +13,168 @@ section#comments
     {
         background-color: $tertiaryBgColor;
     }
-}
 
-.comment-container
-{
-    border-left: 20em solid #00FFFF;
-    overflow: hidden;
-    padding-left: 20em;
-
-    .sidebar
+    .comment-container
     {
-        background-color: #FF0000;
-        float: left;
-        height: 100%;
-        margin-left: -40em;
-        width: 20em;
-        z-index: 99;
+        border: 2px solid #000;
+        margin-bottom: -2px;
+        overflow: hidden;
+        padding-left: 12em;
 
-        .avatar, .username
+        .sidebar
         {
-            text-align: center;
+            background-color: $mainBgColor;
+            border-right: 2px solid #000;
+            float: left;
+            margin-left: -12em;
+            padding: 0.5em;
+            width: 12em;
+            z-index: 99;
+
+            .stat
+            {
+                background-color: $secondaryBgColor;
+                border: 1px solid #000;
+                font-size: 0.8em;
+                margin-top: 1px;
+                padding: 0 0.3em;
+
+                a
+                {
+                    font-weight: bold;
+                }
+            }
+
+            .avatar, .username
+            {
+                text-align: center;
+            }
+
+            .avatar
+            {
+                margin: 0.5em 0;
+            }
+
+            .username
+            {
+                font-weight: bold;
+            }
         }
 
-        .username
+        .content-container
         {
-            font-weight: bold;
+            border-left: 12em solid $mainBgColor;
+            margin-left: -12em;
+            min-width: 20em;
+
+            .content
+            {
+                border-left: 2px solid #000;
+                margin-left: -2px;
+
+                .topbar
+                {
+                    background-color: $mainBgColor;
+                    border-bottom: 1px solid #000;
+                    font-size: 0.9em;
+                    line-height: 2.5em;
+                    overflow: hidden;
+                    padding: 0em 1em 0em 1em;
+                    vertical-align: middle;
+                    
+                    .created-at
+                    {
+                        color: $subduedTextColor;
+                        float: left;
+                    }
+
+                    .likes
+                    {
+                        float: right;
+
+                        .comment-score
+                        {
+                            font-size: 1.1em;
+                            font-weight: bold;
+                            margin-right: 0.5em;
+                        }
+
+                        .liked
+                        {
+                            font-weight: bold;
+                        }
+
+                        button.active
+                        {
+                            background-color: #004000;
+                            border-color: #000;
+                            color: #FFF;
+                        }
+
+                        .like
+                        {
+                            font-size: 0.9em;
+                            padding: 0.3em;
+                            vertical-align: top;
+
+                            span
+                            {
+                                -moz-transform: scale(-1, 1);
+                                -webkit-transform: scale(-1, 1);
+                                -o-transform: scale(-1, 1);
+                                -ms-transform: scale(-1, 1);
+                                transform: scale(-1, 1);
+                            }
+                        }
+                    }
+                }
+
+                .main
+                {
+                    padding: 1em;
+
+                    .updated-at
+                    {
+                        font-size: 0.8em;
+                    }
+                }
+            }
         }
     }
 
-    .content
+    @media screen and (max-width: 640px)
     {
-        margin-left: -20em;
-
-        .topbar
+        .comment-container, .content-container
         {
-            background-color: #00FF00;
-            overflow: hidden;
-            
-            .created-at
+            .sidebar
             {
-                color: $subduedTextColor;
-                float: left;
-            }
+                border: none;
+                float: none;
+                width: auto;
 
-            .votes
-            {
-                float: right;
+                .avatar
+                {
+                    display: none;
+                }
+
+                .stat
+                {
+                    display: none;
+                }
             }
         }
 
-        .comment
+        .content-container
         {
-            background-color: #0000FF;
-        }
-
-        .updated-at
-        {
-            font-size: 0.8em;
+            border: none !important;
+            margin: 0;
+            .content
+            {
+                .topbar
+                {
+                    border-top: 1px solid #000;
+                }
+            }
         }
     }
 }

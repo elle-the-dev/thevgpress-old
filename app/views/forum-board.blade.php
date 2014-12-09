@@ -12,7 +12,7 @@
     @foreach ($board->topics as $topic)
 
         <tr>
-            <td class="votes">{{{ $topic->votes() }}}</td>
+            <td class="likes">{{{ $topic->likes(true) }}}</td>
             <td>
                 <a href="{{ URL::to('forum/'.$board->slug.'/'.$topic->slug) }}">
                     {{{ $topic->title }}}

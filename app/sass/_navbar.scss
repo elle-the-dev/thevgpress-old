@@ -53,6 +53,11 @@
             text-shadow: #000 0.1em 0.1em 0.2em;
         }
 
+        > a
+        {
+            border-radius: 0.5em 0.5em 0 0;
+        }
+
         // active tab
         a:hover, a:focus, .dropdown-menu > li > a:hover
         {

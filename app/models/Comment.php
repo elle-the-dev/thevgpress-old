@@ -8,14 +8,33 @@ class Comment extends Eloquent {
      */
     protected $table = 'comments';
 
+    /**
+     * User who created the comment
+     * @return User
+     */
     public function author()
     {
         return $this->belongsTo('User', 'user_id');
     }
 
-    public function votes()
+    /**
+     * Number of likes the 
+     */
+    public function likes($formatted=false)
     {
-        return $this->hasMany('CommentSetting')->sum('vote');
+        $likes = $this->hasMany('CommentSetting')->sum('liked');
+
+        if (!$formatted)
+            return $likes;
+
+        if ($likes > 0)
+            $sign = '+';
+        else if ($likes < 0)
+            $sign = '-';
+        else
+            $sign = '';
+
+        return $sign.$likes;
     }
 
 }

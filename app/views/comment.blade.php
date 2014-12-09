@@ -13,44 +13,61 @@
                 alt="{{ $comment->author->username }}"
             >
         </div>
-        <div class="score">
+        <div class="score stat">
             <a href="{{ URL::to('leaderboard') }}">
                 Rank: {{ $comment->author->rank() }}
                 ({{ $comment->author->score }})
             </a>
         </div>
-        <div class="country">
+        <div class="country stat">
             Country:
         </div>
-        <div class="commentCount">
+        <div class="comment-count stat">
             Comments: {{ $comment->author->commentCount() }}
         </div>
-        <div class="newsCount">
+        <div class="news-count stat">
             News Posts: {{ $comment->author->newsCount() }}
         </div>
-        <div class="joined">
-            Joined: {{ $comment->author->created_at }}
+        <div class="joined stat">
+            Joined: {{ explode(' ', $comment->author->created_at)[0] }}
         </div>
     </div>
 
-    <div class="content">
-        <div class="topbar">
-            <div class="votes">{{ $comment->votes() }}</div>
-            <div class="created-at">{{ $comment->created_at }}</div>
-        </div>
+    <div class="content-container">
+        <div class="content">
+            <div class="topbar">
+                <div class="likes">
+                    <span class="comment-score">
+                        {{ $comment->likes(true) }}
+                    </span>
 
-        <div class="comment">
-            {{ $comment->comment }}
-        </div>
-
-        @if ($comment->updated_at != $comment->created_at)
-            <div class="updated-at">
-                Edited: {{ $comment->updated_at }}
+                    <input 
+                        type="checkbox"
+                        class="like"
+                        data-toggle="toggle"
+                        data-on="Liked!"
+                        data-off="Like"
+                        data-size="small"
+                    >
+                </div>
+                <div class="created-at">{{ $comment->created_at }}</div>
             </div>
-        @endif
 
-        <div class="signature">
-            {{ $comment->author->signature }}
+            <div class="main">
+                <div class="comment">
+                    {{ $comment->comment }}
+                </div>
+
+                @if ($comment->updated_at != $comment->created_at)
+                    <div class="updated-at">
+                        Edited: {{ $comment->updated_at }}
+                    </div>
+                @endif
+
+                <div class="signature">
+                    {{ $comment->author->signature }}
+                </div>
+            </div>
         </div>
     </div>
 </div>

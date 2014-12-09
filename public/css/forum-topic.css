@@ -1,0 +1,93 @@
+section#comments {
+  margin-bottom: 1em; }
+  section#comments .comment-container:nth-child(odd) {
+    background-color: #303030; }
+  section#comments .comment-container:nth-child(even) {
+    background-color: #292929; }
+  section#comments .comment-container {
+    border: 2px solid #000;
+    margin-bottom: -2px;
+    overflow: hidden;
+    padding-left: 12em; }
+    section#comments .comment-container .sidebar {
+      background-color: #202020;
+      border-right: 2px solid #000;
+      float: left;
+      margin-left: -12em;
+      padding: 0.5em;
+      width: 12em;
+      z-index: 99; }
+      section#comments .comment-container .sidebar .stat {
+        background-color: #303030;
+        border: 1px solid #000;
+        font-size: 0.8em;
+        margin-top: 1px;
+        padding: 0 0.3em; }
+        section#comments .comment-container .sidebar .stat a {
+          font-weight: bold; }
+      section#comments .comment-container .sidebar .avatar, section#comments .comment-container .sidebar .username {
+        text-align: center; }
+      section#comments .comment-container .sidebar .avatar {
+        margin: 0.5em 0; }
+      section#comments .comment-container .sidebar .username {
+        font-weight: bold; }
+    section#comments .comment-container .content-container {
+      border-left: 12em solid #202020;
+      margin-left: -12em;
+      min-width: 20em; }
+      section#comments .comment-container .content-container .content {
+        border-left: 2px solid #000;
+        margin-left: -2px; }
+        section#comments .comment-container .content-container .content .topbar {
+          background-color: #202020;
+          border-bottom: 1px solid #000;
+          font-size: 0.9em;
+          line-height: 2.5em;
+          overflow: hidden;
+          padding: 0em 1em 0em 1em;
+          vertical-align: middle; }
+          section#comments .comment-container .content-container .content .topbar .created-at {
+            color: #A0A0A0;
+            float: left; }
+          section#comments .comment-container .content-container .content .topbar .likes {
+            float: right; }
+            section#comments .comment-container .content-container .content .topbar .likes .comment-score {
+              font-size: 1.1em;
+              font-weight: bold;
+              margin-right: 0.5em; }
+            section#comments .comment-container .content-container .content .topbar .likes .liked {
+              font-weight: bold; }
+            section#comments .comment-container .content-container .content .topbar .likes button.active {
+              background-color: #004000;
+              border-color: #000;
+              color: #FFF; }
+            section#comments .comment-container .content-container .content .topbar .likes .like {
+              font-size: 0.9em;
+              padding: 0.3em;
+              vertical-align: top; }
+              section#comments .comment-container .content-container .content .topbar .likes .like span {
+                -moz-transform: scale(-1, 1);
+                -webkit-transform: scale(-1, 1);
+                -o-transform: scale(-1, 1);
+                -ms-transform: scale(-1, 1);
+                transform: scale(-1, 1); }
+        section#comments .comment-container .content-container .content .main {
+          padding: 1em; }
+          section#comments .comment-container .content-container .content .main .updated-at {
+            font-size: 0.8em; }
+  @media screen and (max-width: 640px) {
+    section#comments .comment-container .sidebar, section#comments .content-container .sidebar {
+      border: none;
+      float: none;
+      width: auto; }
+      section#comments .comment-container .sidebar .avatar, section#comments .content-container .sidebar .avatar {
+        display: none; }
+      section#comments .comment-container .sidebar .stat, section#comments .content-container .sidebar .stat {
+        display: none; }
+    section#comments .content-container {
+      border: none !important;
+      margin: 0; }
+      section#comments .content-container .content .topbar {
+        border-top: 1px solid #000; } }
+
+/*# sourceMappingURL=forum-topic.css.map */

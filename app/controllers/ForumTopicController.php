@@ -22,7 +22,18 @@ class ForumTopicController extends PageController {
 
         $this->layout->title = $topic->title;
         $this->layout->heading = $topic->title;
-        $this->layout->styles = array('css/forum-topic.css');
+        $this->layout->styles = array(
+            'css/bootstrap-toggle.min.css',
+            'css/forum-topic.css',
+            'css/bootstrap-wysihtml5.css'
+        );
+        $this->layout->scripts = array(
+            'js/bootstrap-toggle.min.js',
+            'js/wysihtml5.min.js',
+            'js/bootstrap3-wysihtml5.js',
+            'js/wysihtml5-bgColor.js',
+            'js/comment.js'
+        );
         $this->layout->content = View::make(
             'forum-topic',
             array(
